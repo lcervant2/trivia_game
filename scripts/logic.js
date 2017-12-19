@@ -3,11 +3,16 @@ var gameHTML;
 var counter = 30;
 var questionArray = ["What is the capital of of the United States?", "What is the capital of Mexico?", "What Year did Battlefield 1 come out?", "What Year did Javascript come out?", "Who founded Microsoft?"];
 var answerArray = [["Washington DC", "New York", "Texas", "California"], ["Mexico City","Oaxaca","Michoacan","Queretaro"], ["2016", "2017", "2015", "2014"], ["1996","1935","1995","1997"], ["Bill Gates", "Patrick Knowlan", "Savely Samoylov", "August Cesar"]];
-var imageArray = ["<img class='center-block img-right' src='img/australia.png'>", "<img class='center-block img-right' src='img/liberia.png'>", "<img class='center-block img-right' src='img/taiwan.png'>", "<img class='center-block img-right' src='img/japan.png'>", "<img class='center-block img-right' src='img/china.png'>", "<img class='center-block img-right' src='img/turkey.png'>", "<img class='center-block img-right' src='img/colombia.png'>", "<img class='center-block img-right' src='img/india.png'>"];
+var questionImages = [
+	'./images/DC-FLY-IN_DeisgnElements_Final.png',
+	'./images/Mexico_coat_of_arms.png',
+	'./images/BF4_Scout_Elite-1.png',
+	'./images/AAIA_wDGAAAAAQAAAAAAAA04AAAAJDNhYjk5YzI0LWFlMmMtNDdjYi1hODUyLTgwNDVmNmNlZmFmNw.png',
+	'./images/bill-291x300.png'
+]
+
 var correctAnswers = ["A. Washington DC", "A. Mexico City", "A. 2016", "C. 1995", "A. Bill Gates"];
 var questionCounter = 0;
-var selecterAnswer;
-var theClock;
 var correctTally = 0;
 var incorrectTally = 0;
 var unansweredTally = 0;
@@ -68,14 +73,14 @@ function generateLossDueToTimeOut() {
 
 function generateWin() {
 	correctTally++;
-	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Correct! The answer is: " + correctAnswers[questionCounter] + "</p>" + imageArray[questionCounter];
+	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Correct! The answer is: " + correctAnswers[questionCounter] + "</p>" + '<img src="'+questionImages[questionCounter]+'"/>';
 	$(".mainArea").html(gameHTML);
 	setTimeout(wait, 4000);  
-
+}
 
 function generateLoss() {
 	incorrectTally++;
-	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Wrong! The correct answer is: "+ correctAnswers[questionCounter] + "</p>" + "<img class='center-block img-wrong' src='img/x.png'>";
+	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Wrong! The correct answer is: "+ correctAnswers[questionCounter] + "</p>" + '<img src="'+questionImages[questionCounter]+'"/>';
 	$(".mainArea").html(gameHTML);
 	setTimeout(wait, 4000); 
 }
@@ -86,7 +91,7 @@ function generateHTML() {
 }
 
 function wait() {
-	if (questionCounter < 7) {
+	if (questionCounter < 4) {
 	questionCounter++;
 	generateHTML();
 	counter = 30;
