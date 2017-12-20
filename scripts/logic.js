@@ -1,3 +1,16 @@
+/*	Trivia game:
+1- Shows only one question until the player answers it or their time runs out.
+2- The player selects the correct answer show a screen congratulating them for choosing the right option. 
+3- After a few seconds, display the next question -- do this without user input.
+4- If the player runs out of time, tell the player that time's up and display the correct answer. 
+5- WWait a few seconds, then show the next question.
+6- If the player chooses the wrong answer, tell the player they selected the wrong option and then display the correct answer. 
+7- Wait a few seconds, then show the next question.
+8- On the final screen, show the number of correct answers, incorrect answers, and an option to restart the game (without reloading the page).*/
+
+
+
+
 var startScreen;
 var gameHTML;
 var counter = 30;
@@ -18,7 +31,7 @@ var incorrectTally = 0;
 var unansweredTally = 0;
 var clickSound = new Audio("sound/button-click.mp3");
 
-
+//jQuery function
 $(document).ready(function() {
 
 
@@ -29,7 +42,7 @@ function initialScreen() {
 
 initialScreen();
 
-
+//Create a button
 
 $("body").on("click", ".start-button", function(event){
 	event.preventDefault();  
@@ -40,12 +53,14 @@ $("body").on("click", ".start-button", function(event){
 
 }); 
 
+//Close button
+
 $("body").on("click", ".answer", function(event){
 	
 	clickSound.play();
 	selectedAnswer = $(this).text();
 	if(selectedAnswer === correctAnswers[questionCounter]) {
-		
+//Correct answer		
 
 		clearInterval(theClock);
 		generateWin();
@@ -56,12 +71,12 @@ $("body").on("click", ".answer", function(event){
 		generateLoss();
 	}
 }); 
-
+//Condital stament
 $("body").on("click", ".reset-button", function(event){
 	clickSound.play();
 	resetGame();
 }); 
-
+//Reset button
 });  
 
 function generateLossDueToTimeOut() {
@@ -70,6 +85,7 @@ function generateLossDueToTimeOut() {
 	$(".mainArea").html(gameHTML);
 	setTimeout(wait, 4000);  
 }
+//Time 
 
 function generateWin() {
 	correctTally++;
@@ -77,19 +93,19 @@ function generateWin() {
 	$(".mainArea").html(gameHTML);
 	setTimeout(wait, 4000);  
 }
-
+//Win
 function generateLoss() {
 	incorrectTally++;
 	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>Wrong! The correct answer is: "+ correctAnswers[questionCounter] + "</p>" + '<img src="'+questionImages[questionCounter]+'"/>';
 	$(".mainArea").html(gameHTML);
 	setTimeout(wait, 4000); 
 }
-
+//Loss
 function generateHTML() {
 	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>30</span></p><p class='text-center'>" + questionArray[questionCounter] + "</p><p class='first-answer answer'>A. " + answerArray[questionCounter][0] + "</p><p class='answer'>B. "+answerArray[questionCounter][1]+"</p><p class='answer'>C. "+answerArray[questionCounter][2]+"</p><p class='answer'>D. "+answerArray[questionCounter][3]+"</p>";
 	$(".mainArea").html(gameHTML);
 }
-
+//HTML
 function wait() {
 	if (questionCounter < 4) {
 	questionCounter++;
@@ -101,7 +117,7 @@ function wait() {
 		finalScreen();
 	}
 }
-
+//Wait- if and else staments
 function timerWrapper() {
 	theClock = setInterval(thirtySeconds, 1000);
 	function thirtySeconds() {
@@ -115,12 +131,12 @@ function timerWrapper() {
 		$(".timer").html(counter);
 	}
 }
-
+//Timer Wrapper
 function finalScreen() {
 	gameHTML = "<p class='text-center timer-p'>Time Remaining: <span class='timer'>" + counter + "</span></p>" + "<p class='text-center'>All done, here's how you did!" + "</p>" + "<p class='summary-correct'>Correct Answers: " + correctTally + "</p>" + "<p>Wrong Answers: " + incorrectTally + "</p>" + "<p>Unanswered: " + unansweredTally + "</p>" + "<p class='text-center reset-button-container'><a class='btn btn-primary btn-lg btn-block reset-button' href='#' role='button'>Reset The Quiz!</a></p>";
 	$(".mainArea").html(gameHTML);
 }
-
+//Final screen
 function resetGame() {
 	questionCounter = 0;
 	correctTally = 0;
@@ -130,14 +146,10 @@ function resetGame() {
 	generateHTML();
 	timerWrapper();
 }
+//Reset the game
 
 
-
-
-
-
-
-
+// PSEUDODODE CODE
 
 /*var score;
 score = 0;
